@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import axios from "axios";
 
 const AniItem = props => (
-  <View>
-    <Image style={{ width: 50, height: 50 }} source={props.image} />
-  </View>
+  <React.Fragment>
+    <Text>{props.title}</Text>
+    <Image
+      source={{ uri: `${props.image}` }}
+      style={{ height: 50, width: 50 }}
+    />
+  </React.Fragment>
 );
 
 class Ani extends Component {
@@ -19,7 +23,7 @@ class Ani extends Component {
   }
 
   componentDidMount() {
-    const query = `
+    const query = ` 
       query {
         Page {
           media(isAdult: false, sort: POPULARITY_DESC) {
@@ -28,9 +32,9 @@ class Ani extends Component {
               romaji
               english
             }
-          }
-          coverImage {
-            large
+            coverImage {
+              large
+            }
           }
         }
       }
@@ -48,8 +52,6 @@ class Ani extends Component {
         variables
       });
 
-      console.log(response.data);
-
       this.setState({
         isLoaded: true,
         items: response.data.data.Page.media
@@ -61,7 +63,6 @@ class Ani extends Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
-
     if (error) {
       return (
         <View>
@@ -78,10 +79,13 @@ class Ani extends Component {
 
     return (
       <View>
-        {/* {items.map(item => (
-          <AniItem key={item.id} image={item.coverImage.large} />
-        ))} */}
-        <Text>Hello</Text>
+        {items.map(item => (
+          <AniItem
+            key={item.id}
+            image={item.coverImage.large}
+            title={item.title.romaji}
+          />
+        ))}
       </View>
     );
   }
