@@ -2,14 +2,24 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import axios from "axios";
 
+const styles = StyleSheet.create({
+  ani: {
+    paddingTop: 25
+  },
+  list: {
+    display: "flex",
+    justifyContent: "center"
+  }
+});
+
 const AniItem = props => (
-  <React.Fragment>
+  <View>
     <Text>{props.title}</Text>
     <Image
       source={{ uri: `${props.image}` }}
       style={{ height: 50, width: 50 }}
     />
-  </React.Fragment>
+  </View>
 );
 
 class Ani extends Component {
@@ -78,14 +88,15 @@ class Ani extends Component {
     }
 
     return (
-      <View>
-        {items.map(item => (
-          <AniItem
-            key={item.id}
-            image={item.coverImage.large}
-            title={item.title.romaji}
-          />
-        ))}
+      <View style={styles.ani}>
+        <FlatList
+          style={styles.list}
+          data={items}
+          keyExtractor={(item, index) => item.id.toString()}
+          renderItem={({ item }) => (
+            <AniItem image={item.coverImage.large} title={item.title.romaji} />
+          )}
+        />
       </View>
     );
   }
