@@ -4,16 +4,17 @@ import axios from "axios";
 
 const styles = StyleSheet.create({
   ani: {
-    paddingTop: 25
+    flexDirection: "row",
+    justifyContent: "center"
   },
-  list: {
-    display: "flex",
+  aniItem: {
+    flexDirection: "column",
     justifyContent: "center"
   }
 });
 
 const AniItem = props => (
-  <View>
+  <View style={styles.aniItem}>
     <Text>{props.title}</Text>
     <Image
       source={{ uri: `${props.image}` }}
@@ -88,13 +89,17 @@ class Ani extends Component {
     }
 
     return (
-      <View style={styles.ani}>
+      <View style={{ flexDirection: "row" }}>
         <FlatList
-          style={styles.list}
+          style={{ flexDirection: "column" }}
           data={items}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
-            <AniItem image={item.coverImage.large} title={item.title.romaji} />
+            <AniItem
+              style={{}}
+              image={item.coverImage.large}
+              title={item.title.romaji}
+            />
           )}
         />
       </View>
