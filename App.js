@@ -7,18 +7,6 @@ import Home from "./components/Home";
 import AniInfo from "./components/Ani/AniInfo";
 import AppContainer from "./Routes";
 
-// const RootStack = createStackNavigator(
-//   {
-//     Home: Ani,
-//     Details: AniInfo
-//   },
-//   {
-//     initialRouteName: "Home"
-//   }
-// );
-
-// const AppContainer = createAppContainer(RootStack);
-
 class App extends Component {
   render() {
     return <AppContainer />;
