@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, FlatList, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  Button,
+  ImageBackground
+} from "react-native";
 import axios from "axios";
 import { withNavigation } from "react-navigation";
 
@@ -10,14 +18,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15
   },
-  aniItemContainer: {
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 15,
-    backgroundColor: "#61ABFF"
-  },
+  // aniItemContainer: {
+  //   flexDirection: "row",
+  //   flex: 1,
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  //   padding: 15,
+  //   backgroundColor: "#61ABFF"
+  // },
   aniItemImage: {
     borderColor: "#fff",
     borderWidth: 3
@@ -59,9 +67,21 @@ class Ani extends Component {
               romaji
               english
             }
+            startDate {
+              year
+              month
+              day
+            }
+            endDate {
+              year
+              month
+              day
+            }
             coverImage {
               large
             }
+            bannerImage
+            description
           }
         }
       }
@@ -90,6 +110,7 @@ class Ani extends Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
+
     if (error) {
       return (
         <View>
@@ -113,19 +134,37 @@ class Ani extends Component {
           renderItem={({ item }) => (
             // <AniItem image={item.coverImage.large} title={item.title.romaji} />
             <View style={styles.aniItemContainer}>
-              <View style={styles.aniItemImage}>
-                <Image
-                  source={{ uri: `${item.coverImage.large}` }}
-                  style={{ height: 150, width: 150 }}
-                />
-              </View>
+              {/* <View style={styles.aniItemImage}> */}
+              <ImageBackground
+                source={{ uri: `${item.bannerImage}` }}
+                imageStyle={{ resizeMode: "stretch" }}
+                style={{ flex: 1, height: 150, width: 400 }}
+              >
+                {/* <Button
+                    title={item.title.romaji}
+                    onPress={() =>
+                      this.props.navigation.navigate("Details", {
+                        title: item.title.romaji,
+                        description: item.description,
+                        image: item.coverImage.large
+                      })
+                    }
+                  /> */}
+              </ImageBackground>
+              {/* </View> */}
 
-              <View style={styles.aniItemTitle}>
+              {/* <View style={styles.aniItemTitle}>
                 <Button
                   title={item.title.romaji}
-                  onPress={() => this.props.navigation.navigate("Details")}
+                  onPress={() =>
+                    this.props.navigation.navigate("Details", {
+                      title: item.title.romaji,
+                      description: item.description,
+                      image: item.coverImage.large
+                    })
+                  }
                 />
-              </View>
+              </View> */}
             </View>
           )}
         />
