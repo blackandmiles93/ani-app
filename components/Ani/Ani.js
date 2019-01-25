@@ -24,20 +24,20 @@ const styles = StyleSheet.create({
   }
 });
 
-const AniItem = props => (
-  <View style={styles.aniItemContainer}>
-    <View style={styles.aniItemImage}>
-      <Image
-        source={{ uri: `${props.image}` }}
-        style={{ height: 150, width: 150 }}
-      />
-    </View>
+// const AniItem = props => (
+//   <View style={styles.aniItemContainer}>
+//     <View style={styles.aniItemImage}>
+//       <Image
+//         source={{ uri: `${props.image}` }}
+//         style={{ height: 150, width: 150 }}
+//       />
+//     </View>
 
-    <View style={styles.aniItemTitle}>
-      <Text>{props.title}</Text>
-    </View>
-  </View>
-);
+//     <View style={styles.aniItemTitle}>
+//       <Text>{props.title}</Text>
+//     </View>
+//   </View>
+// );
 
 class Ani extends Component {
   constructor(props) {
