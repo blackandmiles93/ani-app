@@ -14,7 +14,7 @@ export default class AniInfo extends Component {
     console.log(this.props.navigation.state.params);
     return (
       <View>
-        <Image src={image} />
+        <Image source={image} />
         <Text>{title}</Text>
         <Text>{description}</Text>
       </View>

@@ -5,8 +5,10 @@ import {
   View,
   Image,
   FlatList,
+  TouchableOpacity,
   Button,
-  ImageBackground
+  ImageBackground,
+  Dimensions
 } from "react-native";
 import axios from "axios";
 import { withNavigation } from "react-navigation";
@@ -18,17 +20,24 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15
   },
-  // aniItemContainer: {
-  //   flexDirection: "row",
-  //   flex: 1,
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   padding: 15,
-  //   backgroundColor: "#61ABFF"
-  // },
+  aniImage: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: 170
+  },
   aniItemImage: {
     borderColor: "#fff",
     borderWidth: 3
+  },
+  aniItemContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 1,
+    backgroundColor: "#000"
   }
 });
 
@@ -55,6 +64,8 @@ class Ani extends Component {
       isLoaded: false,
       items: []
     };
+
+    // this.getImageSize = this.getImageSize.bind(this);
   }
 
   componentDidMount() {
@@ -108,9 +119,22 @@ class Ani extends Component {
     }
   };
 
+  // getImageSize() {
+  //   const imgSize = Image.getSize(
+  //     this.state.items.bannerImage,
+  //     (width, height) => {
+  //       this.setState({
+  //         width: width,
+  //         height: height
+  //       });
+  //     }
+  //   );
+  //   console.log(imgSize);
+  //   return imgSize;
+  // }
+
   render() {
     const { error, isLoaded, items } = this.state;
-
     if (error) {
       return (
         <View>
@@ -135,22 +159,28 @@ class Ani extends Component {
             // <AniItem image={item.coverImage.large} title={item.title.romaji} />
             <View style={styles.aniItemContainer}>
               {/* <View style={styles.aniItemImage}> */}
-              <ImageBackground
-                source={{ uri: `${item.bannerImage}` }}
-                imageStyle={{ resizeMode: "stretch" }}
-                style={{ flex: 1, height: 150, width: 400 }}
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate("Details", {
+                    title: item.title.romaji,
+                    description: item.description,
+                    image: item.coverImage.large
+                  })
+                }
               >
-                {/* <Button
-                    title={item.title.romaji}
-                    onPress={() =>
-                      this.props.navigation.navigate("Details", {
-                        title: item.title.romaji,
-                        description: item.description,
-                        image: item.coverImage.large
-                      })
-                    }
-                  /> */}
-              </ImageBackground>
+                <ImageBackground
+                  source={{ uri: `${item.bannerImage}` }}
+                  imageStyle={{
+                    resizeMode: "cover",
+                    opacity: 0.5
+                  }}
+                  style={styles.aniImage}
+                >
+                  <Text style={{ fontSize: 20, color: "#fff" }}>
+                    {item.title.romaji}
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
               {/* </View> */}
 
               {/* <View style={styles.aniItemTitle}>
