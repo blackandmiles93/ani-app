@@ -158,7 +158,6 @@ class Ani extends Component {
           renderItem={({ item }) => (
             // <AniItem image={item.coverImage.large} title={item.title.romaji} />
             <View style={styles.aniItemContainer}>
-              {/* <View style={styles.aniItemImage}> */}
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate("Details", {
@@ -181,7 +180,6 @@ class Ani extends Component {
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
-              {/* </View> */}
 
               {/* <View style={styles.aniItemTitle}>
                 <Button
