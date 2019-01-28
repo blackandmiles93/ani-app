@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 });
 
 class AniInfo extends Component {
+  // This may not be performant so might need some refactoring
   truncateDesc = desc => {
     return desc
       .split("<br>")
